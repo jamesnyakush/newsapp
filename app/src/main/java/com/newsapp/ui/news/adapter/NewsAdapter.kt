@@ -3,7 +3,7 @@ package com.newsapp.ui.news.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.newsapp.template.databinding.ItemNewsBinding
+import com.newsapp.databinding.ItemNewsBinding
 
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {

@@ -1,7 +1,9 @@
 package com.newsapp.di
 
 import android.content.Context
-import com.newsapp.data.db.AppDatabase
+import androidx.room.Room
+import com.newsapp.data.local.AppDatabase
+import com.newsapp.data.local.dao.NewsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-/*    @Provides
+    @Provides
     @Singleton
     fun providesAppDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "news_db")
@@ -23,6 +25,6 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesCourseDao(appDatabase: AppDatabase): MovieDao =
-        appDatabase.movieDao()*/
+    fun providesCourseDao(appDatabase: AppDatabase): NewsDao  =
+        appDatabase.newsDao()
 }

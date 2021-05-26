@@ -2,7 +2,6 @@ package com.newsapp
 
 import android.app.Application
 import androidx.annotation.Nullable
-import com.newsapp.template.BuildConfig
 import com.newsapp.util.CrashlyticsTree
 import dagger.hilt.android.HiltAndroidApp
 import org.jetbrains.annotations.NotNull

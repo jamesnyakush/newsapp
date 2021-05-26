@@ -18,6 +18,13 @@ android {
         versionName = AndroidSDK.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -65,6 +72,7 @@ dependencies {
     // ViewModel and LiveData
     api(Libraries.lifecycle_extensions)
     api(Libraries.lifecycle_viewmodel)
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
 
     //New Material Design
     api(Libraries.material)
@@ -81,6 +89,11 @@ dependencies {
     // Dagger Hilt
     implementation(Libraries.hiltAndroid)
     kapt(Libraries.hiltAndroidCompiler)
+
+    // Room Database
+    implementation(Libraries.roomKtx)
+    implementation(Libraries.roomRuntime)
+    kapt(Libraries.roomCompiler)
 
 
     api(Libraries.timber)

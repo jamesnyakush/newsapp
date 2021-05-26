@@ -18,6 +18,7 @@ object Versions {
     const val preference = "1.1.1"
     const val okHttp = "4.10.0-RC1"
     const val hiltVersion = "2.35.1"
+    const val room = "2.2.5"
 
     const val junit4 = "4.13.1"
     const val testRunner = "1.1.0"
@@ -86,6 +87,12 @@ object Libraries {
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
     const val hiltAndroidCompiler =
         "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+
+    // Room Database
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+
 
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
