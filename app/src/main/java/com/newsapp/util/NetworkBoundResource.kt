@@ -1,28 +1,40 @@
 package com.newsapp.util
 
-import kotlinx.coroutines.flow.*
+import androidx.annotation.MainThread
+import com.newsapp.data.State
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
+@ExperimentalCoroutinesApi
+abstract class NetworkBoundRepository<T> {
 
-inline fun <ResultType, RequestType> networkBoundResource(
-    crossinline query: () -> Flow<ResultType>,
-    crossinline fetch: suspend () -> RequestType,
-    crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    crossinline shouldFetch: (ResultType) -> Boolean = { true }
-) = flow {
-    val data = query().first()
+    fun asFlow() = flow<State<T>> {
 
-    val flow = if (shouldFetch(data)) {
-        emit(Resource.Loading(data))
+        // Emit Loading State
+        emit(State.loading())
 
         try {
-            saveFetchResult(fetch())
-            query().map { Resource.Success(it) }
-        } catch (throwable: Throwable) {
-            query().map { Resource.Error(throwable, it) }
+            // Fetch latest data from remote
+            val apiResponse = fetchFromRemote()
+
+            // Parse body
+            val remotePosts = apiResponse.body()
+
+            // Check for response validation
+            if (apiResponse.isSuccessful && remotePosts != null) {
+                emit(State.success(remotePosts))
+            } else {
+                // Something went wrong! Emit Error state.
+                emit(State.error(apiResponse.message()))
+            }
+        } catch (e: Exception) {
+            // Exception occurred! Emit error
+            emit(State.error("Network error! Can't get latest data."))
+            e.printStackTrace()
         }
-    } else {
-        query().map { Resource.Success(it) }
     }
 
-    emitAll(flow)
+    @MainThread
+    protected abstract suspend fun fetchFromRemote(): Response<T>
 }

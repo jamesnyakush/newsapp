@@ -1,16 +1,9 @@
 package com.newsapp.data.repository
 
-import com.newsapp.data.DataResponse
 import com.newsapp.data.local.dao.NewsDao
 import com.newsapp.data.local.entity.Article
 import com.newsapp.data.network.ApiClient
-import com.newsapp.data.network.NewsResponse
-import com.newsapp.util.networkBoundResource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import retrofit2.Response
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -31,24 +24,13 @@ class NewsRepository @Inject constructor(
         }.asFlow().flowOn(Dispatchers.IO)
     }*/
 
-    fun fetch() = networkBoundResource(
-        query = {
-            dao.fetchNews()
-        },
-        fetch = {
-            apiClient.getNews("us","business","75cdd7daba1e4339b7cbccfe40a620b6")
-        },
-        saveFetchResult = { news ->
-            dao.saveNews(news.articles)
-        }
-    )
-
 
     suspend fun saveNewsToLocal(article: List<Article>) {
         dao.saveNews(article)
     }
 
-/*    suspend fun fetchNewsFromLocal(): Flow<List<Article>> {
+
+    fun fetchNewsFromLocal(): Flow<List<Article>> {
         return dao.fetchNews()
-    }*/
+    }
 }

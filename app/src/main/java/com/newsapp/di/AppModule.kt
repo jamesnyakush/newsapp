@@ -1,6 +1,7 @@
 package com.newsapp.di
 
 import com.newsapp.data.network.ApiClient
+import com.newsapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +18,7 @@ object AppModule {
     @Singleton
     fun providesRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
