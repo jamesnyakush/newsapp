@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
 @ExperimentalCoroutinesApi
-abstract class NetworkBoundRepository<T> {
+abstract class NetworkBoundResource<T> {
 
     fun asFlow() = flow<State<T>> {
 

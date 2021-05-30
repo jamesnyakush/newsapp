@@ -19,6 +19,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        ndkVersion = "22.1.7171670"
+        
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
@@ -38,6 +40,12 @@ android {
 
         getByName("debug") {
 
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path("CMakeLists.txt")
         }
     }
 

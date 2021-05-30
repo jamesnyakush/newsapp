@@ -13,8 +13,9 @@ import com.newsapp.databinding.NewsFragmentBinding
 import com.newsapp.ui.news.adapter.NewsAdapter
 import com.newsapp.ui.news.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class News : Fragment(R.layout.news_fragment) {
 
@@ -42,9 +43,10 @@ class News : Fragment(R.layout.news_fragment) {
         observeOfflineArticles()
     }
 
+
     private fun observeOfflineArticles() {
-        viewModel.fetchNewsFromLocal.observe(viewLifecycleOwner, Observer {
-            setupRecyclerView(it)
+        viewModel.fetchNewsFromLocal.observe(viewLifecycleOwner, Observer { articles ->
+            setupRecyclerView(articles)
         })
     }
 
